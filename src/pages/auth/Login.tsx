@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
+import { FormEvent, useState } from "react";
 import styles from "./auth.module.css";
 
 export default function Login() {
+  const [requestParams, setRequestParams] = useState({
+    email: "",
+    password: "",
+  });
+
   return (
     <div className={styles.root}>
       <div className={styles.container}>
@@ -9,7 +15,16 @@ export default function Login() {
           <h2>Login</h2>
         </header>
 
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target as HTMLFormElement);
+            const formValues = {
+              email: `${formData.get("email") ?? ""}`,
+              password: `${formData.get("password") ?? ""}`,
+            };
+          }}
+        >
           <div className={styles.inputContainer}>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" required />
