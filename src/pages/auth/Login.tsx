@@ -5,7 +5,10 @@ export default function Login() {
   return (
     <div className={styles.root}>
       <div className={styles.container}>
-        <h2>Login</h2>
+        <header>
+          <h2>Login</h2>
+        </header>
+
         <form>
           <div className={styles.inputContainer}>
             <label htmlFor="email">Email</label>
@@ -16,9 +19,14 @@ export default function Login() {
           </div>
         </form>
 
-        <p>
-          Not a member? <Link to={"/register"}>Signup</Link>
-        </p>
+        <footer>
+          <p>
+            Not a member?{" "}
+            <Link className={styles.link} to={"/register"}>
+              Signup
+            </Link>
+          </p>
+        </footer>
       </div>
     </div>
   );

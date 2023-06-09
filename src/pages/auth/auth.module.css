@@ -6,7 +6,8 @@
 
 .container {
   padding: 2rem;
-  border: 1px solid black;
+  border: 1px solid white;
+  border-radius: 1rem;
   width: 100%;
   max-width: 20rem;
 }
@@ -17,4 +18,39 @@
   width: 100%;
   align-items: center;
   justify-content: center;
+}
+
+header {
+  margin: 1rem;
+  text-align: center;
+}
+
+footer {
+  margin: 1rem;
+  text-align: center;
+}
+
+button {
+  color: white;
+  cursor: pointer;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 1rem;
+  background: linear-gradient(120deg, darkmagenta, crimson, orange);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position 0.5s;
+}
+
+button:hover {
+  background-position: 0 0;
+}
+
+input {
+  padding: 0.3rem;
+}
+
+.link {
+  color: orange;
 }
