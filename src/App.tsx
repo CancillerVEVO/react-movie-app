@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login, PopularMovies, Register, MovieReviews } from "./pages";
-
+import "./style.css";
 function App() {
   return (
     <div>
