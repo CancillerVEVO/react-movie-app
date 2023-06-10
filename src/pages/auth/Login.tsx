@@ -1,13 +1,8 @@
 import { Link } from "react-router-dom";
-import { FormEvent, useState } from "react";
 import styles from "./auth.module.css";
+import { loginRequest } from "./api";
 
 export default function Login() {
-  const [requestParams, setRequestParams] = useState({
-    email: "",
-    password: "",
-  });
-
   return (
     <div className={styles.root}>
       <div className={styles.container}>
@@ -16,13 +11,17 @@ export default function Login() {
         </header>
 
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target as HTMLFormElement);
             const formValues = {
               email: `${formData.get("email") ?? ""}`,
               password: `${formData.get("password") ?? ""}`,
             };
+
+            const response = await loginRequest(formValues);
+
+            console.log(response);
           }}
         >
           <div className={styles.inputContainer}>
