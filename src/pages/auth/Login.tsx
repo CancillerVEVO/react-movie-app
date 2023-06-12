@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "./auth.module.css";
 import { loginRequest } from "./api";
+import { useState } from "react";
 
 export default function Login() {
+  const [error, setError] = useState<string | null>(null);
   return (
     <div className={styles.root}>
       <div className={styles.container}>
@@ -19,9 +21,14 @@ export default function Login() {
               password: `${formData.get("password") ?? ""}`,
             };
 
-            const response = await loginRequest(formValues);
-
-            console.log(response);
+            try {
+              const response = await loginRequest(formValues);
+              console.log(response);
+            } catch (error) {
+              error instanceof Error
+                ? setError(error.message)
+                : console.error(error);
+            }
           }}
         >
           <div className={styles.inputContainer}>
@@ -41,6 +48,14 @@ export default function Login() {
             </Link>
           </p>
         </footer>
+
+        {error ? (
+          <div className={styles.errorContainer}>
+            <ul className={styles.errorList}>
+              <li>Credenciales Invalidas</li>
+            </ul>
+          </div>
+        ) : null}
       </div>
     </div>
   );

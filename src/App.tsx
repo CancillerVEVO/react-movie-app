@@ -1,18 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login, PopularMovies, Register, MovieReviews } from "./pages";
+import { UserProvider } from "./providers";
+
 import "./style.css";
+
 function App() {
   return (
-    <div>
+    <UserProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MovieReviews />} />
-          <Route path="/movies" element={<PopularMovies />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/movies" element={<PopularMovies />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </UserProvider>
   );
 }
 export default App;
