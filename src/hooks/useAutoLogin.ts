@@ -19,6 +19,4 @@ export const useAutoLogin = () => {
   useEffect(() => {
     setUser(query.data ? query.data.data.data : null);
   }, [query.data]);
-
-  return query;
 };

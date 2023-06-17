@@ -1,6 +1,5 @@
 import { movieApi } from "@/lib";
 import { User } from "@/providers/UserProvider";
-import getApiError from "@/utils/getApiError";
 
 interface SignInProps {
   email: string;
