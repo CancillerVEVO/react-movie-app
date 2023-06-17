@@ -1,10 +1,21 @@
 import { Link } from "react-router-dom";
 import styles from "./auth.module.css";
-import { loginRequest } from "./api";
-import { useState } from "react";
+import { useLogin } from "./hooks/useLogin";
 
 export default function Login() {
-  const [error, setError] = useState<string | null>(null);
+  const { mutate, isError } = useLogin();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const credentials = {
+      email: `${formData.get("email") ?? ""}`,
+      password: `${formData.get("password") ?? ""}`,
+    };
+
+    mutate(credentials);
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.container}>
@@ -12,25 +23,7 @@ export default function Login() {
           <h2>Login</h2>
         </header>
 
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target as HTMLFormElement);
-            const formValues = {
-              email: `${formData.get("email") ?? ""}`,
-              password: `${formData.get("password") ?? ""}`,
-            };
-
-            try {
-              const response = await loginRequest(formValues);
-              console.log(response);
-            } catch (error) {
-              error instanceof Error
-                ? setError(error.message)
-                : console.error(error);
-            }
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <div className={styles.inputContainer}>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" required />
@@ -49,7 +42,7 @@ export default function Login() {
           </p>
         </footer>
 
-        {error ? (
+        {isError ? (
           <div className={styles.errorContainer}>
             <ul className={styles.errorList}>
               <li>Credenciales Invalidas</li>

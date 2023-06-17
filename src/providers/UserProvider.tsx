@@ -1,47 +1,20 @@
-import React, { createContext, useCallback, useState } from "react";
+import React, { createContext, useState } from "react";
 
-interface User {
+export interface User {
   id: number;
-  username: string;
+  nombre: string;
   email: string;
   rol: "USER" | "ADMIN";
 }
 
-interface UserProviderValue {
-  user: User;
-  authenticated: boolean;
-  setUser: (user: User | null) => void;
-}
+type UserProviderValue = [User | null, (user: User | null) => void];
 
-const INITIAL_USER: User = {
-  id: 0,
-  username: "",
-  email: "",
-  rol: "USER",
-};
-
-const UserContext = createContext<UserProviderValue>({
-  user: INITIAL_USER,
-  authenticated: false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setUser: () => {},
-});
+export const UserContext = createContext<UserProviderValue>([null, () => {}]);
 
 export function UserProvider(props: { children: React.ReactNode }) {
-  const [user, _setUser] = useState<User>(INITIAL_USER);
-  const authenticated = user.id !== 0;
-
-  const setUser = useCallback((user: User | null) => {
-    if (user) {
-      _setUser(user);
-    } else {
-      _setUser(INITIAL_USER);
-    }
-  }, []);
+  const value = useState<User | null>(null);
 
   return (
-    <UserContext.Provider value={{ user, authenticated, setUser }}>
-      {props.children}
-    </UserContext.Provider>
+    <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
   );
 }

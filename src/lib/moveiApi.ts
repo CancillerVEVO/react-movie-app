@@ -8,3 +8,11 @@ export const movieApi = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+movieApi.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+
+  config.headers["Authorization"] = token ? `Bearer ${token}` : undefined;
+
+  return config;
+});

@@ -1,4 +1,5 @@
 import { movieApi } from "@/lib";
+import { User } from "@/providers/UserProvider";
 import getApiError from "@/utils/getApiError";
 
 interface SignInProps {
@@ -11,15 +12,11 @@ interface SignInResponse {
   message: string;
   data: {
     token: string;
+    user: User;
   };
 }
 
 export async function loginRequest(params: SignInProps) {
-  try {
-    const response = await movieApi.post<SignInResponse>("/auth/login", params);
-
-    return response.data;
-  } catch (error) {
-    throw getApiError(error);
-  }
+  const response = await movieApi.post<SignInResponse>("/auth/login", params);
+  return response.data;
 }
